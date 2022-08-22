@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
-import MovieAPI from '../services/MovieAPI'
 import LoadingSpinner from '../components/LoadingSpinner'
 import MovieCard from '../components/MovieCard'
 import GenrePicker from '../components/GenrePicker'
 import Pagination from '../components/Pagination'
+import useLatest from '../hooks/useLatest'
 import { useSearchParams } from 'react-router-dom'
 import {
 	Box,
@@ -13,7 +12,7 @@ import {
 
 const AllMovies = () => {
     const [page, setPage] = useState(1)
-    const { data, error, isError, isLoading, isSuccess } = useQuery(['all-movies', {page}], () => MovieAPI.getAllLatest(page))
+    const { data, error, isError, isLoading, isSuccess } = useLatest(page)
     const [searchParams, setSearchParams] = useSearchParams()
 
     const thePage = Number(searchParams.get('page'))

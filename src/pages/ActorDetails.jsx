@@ -1,9 +1,9 @@
 import React from 'react'
-import { useQuery } from 'react-query'
 import { useParams, Link } from 'react-router-dom'
 import LoadingSpinner from '../components/LoadingSpinner'
 import MovieAPI from '../services/MovieAPI'
 import MoviesPlayed from '../components/MoviesPlayed'
+import useActor from '../hooks/useActor'
 import {
 	Box,
 	Heading,
@@ -19,7 +19,7 @@ import {
 
 const MovieDetails = () => {
     const { id } = useParams()
-    const { data, error, isError, isLoading, isSuccess } = useQuery(['actor', {id}], () => MovieAPI.getActor(id))
+    const { data, error, isError, isLoading, isSuccess } = useActor(id)
 
   return (
     <Box>

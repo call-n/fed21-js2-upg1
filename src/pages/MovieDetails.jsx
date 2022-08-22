@@ -1,8 +1,8 @@
 import React from 'react'
-import { useQuery } from 'react-query'
 import { useParams, Link } from 'react-router-dom'
 import LoadingSpinner from '../components/LoadingSpinner'
 import MovieAPI from '../services/MovieAPI'
+import useMovie from '../hooks/useMovie'
 import {
 	Box,
 	Heading,
@@ -18,7 +18,7 @@ import {
 
 const MovieDetails = () => {
     const { id } = useParams()
-    const { data, error, isError, isLoading, isSuccess } = useQuery(['single-movie', {id}], () => MovieAPI.getMovie(id))
+    const { data, error, isError, isLoading, isSuccess } = useMovie(id)
 
     const timeConvert = (n) => {
         var num = n
@@ -93,7 +93,7 @@ const MovieDetails = () => {
                     </Heading>
 
                     <Flex overflowY="hidden" overflowX="scroll">
-                        {data.credits.cast.filter(actor => actor.order < 8).map((actor, i) => (
+                        {data.credits.cast.filter(actor => actor.order < 10).map((actor, i) => (
                             <ActorProfile key={i} props={actor} />
                         ))}
                     </Flex>

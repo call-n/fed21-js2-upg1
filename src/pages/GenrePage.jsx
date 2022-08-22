@@ -1,11 +1,10 @@
 import React from 'react'
-import { useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
-import MovieAPI from '../services/MovieAPI'
 import LoadingSpinner from '../components/LoadingSpinner'
 import MovieCard from '../components/MovieCard'
 import GenrePicker from '../components/GenrePicker'
 import genres from '../helpers/genres'
+import useGenre from '../hooks/useGenre'
 import {
 	Box,
 	Heading
@@ -13,7 +12,7 @@ import {
 
 const GenrePage = () => {
     const { id } = useParams()
-    const { data, error, isError, isLoading, isSuccess } = useQuery(['genre-movie', {id}], () => MovieAPI.getGenre(id))
+    const { data, error, isError, isLoading, isSuccess } = useGenre(id)
 
     // found this too be the fastest way to get the genre without sending another api call
     const genreName = genres.filter(genre => genre.id === Number(id))
