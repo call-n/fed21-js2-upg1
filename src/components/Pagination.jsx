@@ -6,7 +6,7 @@ import {
 
 const Pagination = ({ page, numPages, hasPreviousPage, onPreviousPage, hasNextPage, onNextPage }) => {
 	return (
-		<Flex>
+		<Flex justifyContent="space-between" alignItems="center" marginTop="1rem" marginBottom="1rem">
 			<Box>
 				<Button
 					disabled={!hasPreviousPage}
