@@ -1,5 +1,4 @@
 import axios from 'axios'
-const NODE_ENV = process.env.NODE_ENV;
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3/'
 const movieImagesEndpoint = 'https://image.tmdb.org/t/p/w500/'
@@ -25,8 +24,8 @@ const getAllLatest = (page) => {
     return get(`/movie/now_playing?api_key=${api_key}&language=en-US&page=${page}`)
 }
 
-const getGenre = (genre) => {
-    return get(`/discover/movie?api_key=${api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genre}&with_watch_monetization_types=flatrate`)
+const getGenre = (genre, page) => {
+    return get(`/discover/movie?api_key=${api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genre}&with_watch_monetization_types=flatrate&page=${page}`)
 }
 
 const getMovie = (id) => {
