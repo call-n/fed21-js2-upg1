@@ -25,6 +25,13 @@ const GenrePage = () => {
         setPage(thePage)
     }, [])
 
+    // resets the pagecount on changing genre
+    useEffect(() => {
+        if( !thePage ){
+            setPage(1)
+        }
+    }, [id])
+
     useEffect(() => {
         setSearchParams({ page: page })
     }, [page])
