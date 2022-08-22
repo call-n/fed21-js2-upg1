@@ -6,7 +6,7 @@ const GlobalFetchingSpinner = () => {
 
 	return isFetching ? (
 		<div id="fetching-spinner">
-			<BounceLoader size={40} color="#d3751d" />
+			<BounceLoader size={40} color="#c58af9" />
 		</div>
 	) : null
 }
