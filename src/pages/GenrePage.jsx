@@ -5,6 +5,7 @@ import MovieAPI from '../services/MovieAPI'
 import LoadingSpinner from '../components/LoadingSpinner'
 import MovieCard from '../components/MovieCard'
 import GenrePicker from '../components/GenrePicker'
+import genres from '../helpers/genres'
 import {
 	Box,
 	Heading
@@ -13,6 +14,9 @@ import {
 const GenrePage = () => {
     const { id } = useParams()
     const { data, error, isError, isLoading, isSuccess } = useQuery(['genre-movie', {id}], () => MovieAPI.getGenre(id))
+
+    // found this too be the fastest way to get the genre without sending another api call
+    const genreName = genres.filter(genre => genre.id === Number(id))
 
   return (
     <Box>
@@ -28,7 +32,7 @@ const GenrePage = () => {
                 position="relative"
             >
                 <Heading marginBottom="3rem" fontSize="5xl">
-                    All Movies in     
+                    All Movies in {genreName[0].name}
                 </Heading>
 
                 <Heading marginBottom="2rem">Genres</Heading>
