@@ -4,23 +4,23 @@ import {
     Box,
 } from '@chakra-ui/react'
 
-const Pagination = ({ page, numPages, hasPreviousPage, onPreviousPage, hasNextPage, onNextPage }) => {
+const Pagination = ({ page, totPages, onChangePage }) => {
 	return (
 		<Flex justifyContent="space-between" alignItems="center" marginTop="1rem" marginBottom="1rem">
 			<Box>
 				<Button
-					disabled={!hasPreviousPage}
-					onClick={onPreviousPage}
+					disabled={page -1 === 0}
+					onClick={() => onChangePage({page: Number(page) - 1}) }
 					variant="primary"
 				>Previous Page</Button>
 			</Box>
 
-			<Box>Page {page}/{numPages}</Box>
+			<Box>Page {page}/{totPages}</Box>
 
 			<Box>
 				<Button
-					disabled={!hasNextPage}
-					onClick={onNextPage}
+					disabled={page >= totPages }
+					onClick={() => onChangePage({page: Number(page) + 1}) }
 					variant="primary"
 				>Next Page</Button>
 			</Box>

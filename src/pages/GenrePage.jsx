@@ -14,28 +14,9 @@ import {
 
 const GenrePage = () => {
     const { id } = useParams()
-    const [page, setPage] = useState(1)
+    const [searchParams, setSearchParams] = useSearchParams({ page: 1 })
+    const page = searchParams.get('page')
     const { data, error, isError, isLoading, isSuccess } = useGenre(id, page)
-    const [searchParams, setSearchParams] = useSearchParams()
-
-    const thePage = Number(searchParams.get('page'))
-
-    useEffect(() => {
-        if(thePage === 1 || !thePage) return
-        setPage(thePage)
-    }, [])
-
-    // resets the pagecount on changing genre
-    useEffect(() => {
-        if( !thePage ){
-            setPage(1)
-        }
-    }, [id])
-
-    useEffect(() => {
-        setSearchParams({ page: page })
-    }, [page])
-
     // found this too be the fastest way to get the genre without sending another api call
     const genreName = genres.filter(genre => genre.id === Number(id))
 
@@ -85,11 +66,8 @@ const GenrePage = () => {
                 >
                     <Pagination 
                         page={page}
-                        numPages={data.total_pages}
-                        hasPreviousPage={data.page - 1 !== 0}
-                        hasNextPage={data.page + 1 < data.total_pages}
-                        onPreviousPage={() => setPage(currentPage => currentPage - 1)}
-                        onNextPage={() => setPage(currentPage => currentPage + 1)}
+                        totPages={data.total_pages}
+                        onChangePage={setSearchParams}
                     />
                 </Box>
             </Box>

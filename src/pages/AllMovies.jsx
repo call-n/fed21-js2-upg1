@@ -11,20 +11,9 @@ import {
 } from '@chakra-ui/react'
 
 const AllMovies = () => {
-    const [page, setPage] = useState(1)
+    const [searchParams, setSearchParams] = useSearchParams({ page: 1 })
+    const page = searchParams.get('page')
     const { data, error, isError, isLoading, isSuccess } = useLatest(page)
-    const [searchParams, setSearchParams] = useSearchParams()
-
-    const thePage = Number(searchParams.get('page'))
-
-    useEffect(() => {
-        if(thePage === 0) return
-        setPage(thePage)
-    }, [])
-
-    useEffect(() => {
-        setSearchParams({ page: page })
-    }, [page])
 
   return (
     <Box>
@@ -73,11 +62,8 @@ const AllMovies = () => {
                     >
                         <Pagination 
                             page={page}
-                            numPages={data.total_pages}
-                            hasPreviousPage={data.page - 1 !== 0}
-                            hasNextPage={data.page + 1 < data.total_pages}
-                            onPreviousPage={() => setPage(currentPage => currentPage - 1)}
-                            onNextPage={() => setPage(currentPage => currentPage + 1)}
+                            totPages={data.total_pages}
+                            onChangePage={setSearchParams}
                         />
                     </Box>
                 </Box>
